@@ -16,17 +16,18 @@ export class NewsService {
 
   constructor( private http: HttpClient) { }
 
-  private runQuery( query: string){
+  private runQuery<T>( query: string){
     query = apiURL + query;
 
-    return this.http.get(query, {headers});
+    return this.http.get<T>(query, {headers});
   }
 
   getTopHeadlines(){
-    return this.runQuery(`/top-headlines?country=us`);
+
+    return this.runQuery<ResponseTopHeadlines>(`/top-headlines?country=us`);
   }
 
   getTopHeadlinesCategory( category: string){
-    return this.runQuery(`/top-headlines?country=us&category=${category}`);
+    return this.runQuery<ResponseTopHeadlines>(`/top-headlines?country=us&category=${category}`);
   }
 }
