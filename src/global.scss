@@ -42,3 +42,12 @@
 ion-spinner {
     --color: white;
 }
+
+.action-dark {
+    background-color: gray !important;
+    color: white !important;
+}
+
+.action-dark ion-icon {
+    color: white !important;
+}
