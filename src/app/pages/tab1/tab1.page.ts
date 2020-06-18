@@ -14,10 +14,32 @@ export class Tab1Page implements OnInit {
   constructor( private newService: NewsService) {}
 
   ngOnInit() {
-    this.newService.getTopHeadlines().subscribe( res => {
-      console.log( 'new', res);
-      /*this.news = res.articles; Sobre escribe los articulos*/
-      this.news.push(...res.articles);
+    this.loadNews();
+  }
+
+  loadData(event){
+    console.log(event);
+    this.loadNews(event);
+  }
+
+  loadNews( event?){
+    this.newService.getTopHeadlines().subscribe( resp => {
+      console.log( 'new', resp);
+
+      if (resp.articles.length > 0){
+        this.news.push(...resp.articles);
+        // event.target.disabled = true;
+        // event.target.complete();
+        // return;
+      }
+
+      /*this.news = res.articles; Rewrite arrays of news*/
+
+      if (event) {
+        event.target.complete();
+        event.target.disabled = (resp.articles.length === 0);
+
+      }
     });
   }
 }
