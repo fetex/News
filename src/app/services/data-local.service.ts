@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Article } from '../interfaces/interfaces';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,20 @@ export class DataLocalService {
 
   favoriteNews: Article[] = [];
 
-  constructor( private storage: Storage) {
+  constructor( private storage: Storage,
+               public toastCtrl: ToastController) {
 
     this.loadFavorite();
    }
+
+   async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message,
+      cssClass : 'toast',
+      duration: 2000
+    });
+    toast.present();
+  }
 
    /* Save new in storage in datalocal*/
   saveNew( notice: Article ){
@@ -23,8 +34,9 @@ export class DataLocalService {
       this.favoriteNews.unshift( notice );
         // set a key/value
       this.storage.set('Favorite', this.favoriteNews);
-      console.log('Save new');
     }
+
+    this.presentToast('Add in Favorites');
 
   }
 
@@ -32,6 +44,8 @@ export class DataLocalService {
   deleteNew( notice: Article ){
 
     this.favoriteNews = this.favoriteNews.filter( noti => noti.title !== notice.title);
+    this.presentToast('Delete in  Favorites');
+
   }
 
   /* Load News in datalocal storage */
