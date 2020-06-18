@@ -28,7 +28,7 @@ export class NewsService {
 
   getTopHeadlines(){
     this.headlinesPage++;
-    return this.runQuery<ResponseTopHeadlines>(`/top-headlines?country=us&page=${this.headlinesPage}`);
+    return this.runQuery<ResponseTopHeadlines>(`/top-headlines?country=co&page=${this.headlinesPage}`);
   }
 
   getTopHeadlinesCategory( category: string){
@@ -39,6 +39,6 @@ export class NewsService {
       this.categoryPage = 1;
       this.currentCategory = category;
     }
-    return this.runQuery<ResponseTopHeadlines>(`/top-headlines?country=us&category=${category}&page=${this.categoryPage}`);
+    return this.runQuery<ResponseTopHeadlines>(`/top-headlines?country=co&category=${category}&page=${this.categoryPage}`);
   }
 }
