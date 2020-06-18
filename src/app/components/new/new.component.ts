@@ -16,6 +16,8 @@ export class NewComponent implements OnInit {
 
   @Input() new: Article;
   @Input() index: number;
+  @Input() inFavorite;
+
 
   constructor( private iab: InAppBrowser,
                private actionSheetCtlr: ActionSheetController,
@@ -29,6 +31,35 @@ export class NewComponent implements OnInit {
   }
 
   async  menuOptions(){
+
+
+    let saveDeleteBtn;
+
+    if (this.inFavorite){
+
+      saveDeleteBtn = {
+        text: 'Delete Favorite',
+        icon: 'trash-outline',
+        cssClass: 'action-dark',
+        handler: () => {
+          console.log(' Delete Favorite ');
+          this.dataLocalService.deleteNew(this.new );
+        }
+      };
+
+    } else {
+      saveDeleteBtn = {
+        text: 'Favorite',
+        icon: 'heart',
+        cssClass: 'action-dark',
+        handler: () => {
+          console.log('Favorite clicked');
+          this.dataLocalService.saveNew(this.new );
+        }
+      };
+    }
+
+
     const actionSheet = await this.actionSheetCtlr.create({
       cssClass: 'my-custom-class',
       buttons: [
@@ -45,15 +76,8 @@ export class NewComponent implements OnInit {
           //   this.new.url
           // );   /* share news from phone*/
         }
-      }, {
-        text: 'Favorite',
-        icon: 'heart',
-        cssClass: 'action-dark',
-        handler: () => {
-          console.log('Favorite clicked');
-          this.dataLocalService.saveNew(this.new );
-        }
-      }, {
+      }, saveDeleteBtn,
+      {
         text: 'Cancel',
         icon: 'close',
         cssClass: 'action-dark',

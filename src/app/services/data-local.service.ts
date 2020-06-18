@@ -14,6 +14,7 @@ export class DataLocalService {
     this.loadFavorite();
    }
 
+   /* Save new in storage in datalocal*/
   saveNew( notice: Article ){
 
     const existe = this.favoriteNews.find( noti => noti.title === notice.title);
@@ -27,12 +28,21 @@ export class DataLocalService {
 
   }
 
+  /* Delete new of Favorite News*/
+  deleteNew( notice: Article ){
+
+    this.favoriteNews = this.favoriteNews.filter( noti => noti.title !== notice.title);
+  }
+
+  /* Load News in datalocal storage */
   async loadFavorite(){
 
     const favorites = await this.storage.get('Favorite');
 
     if (favorites){
       this.favoriteNews  = favorites;
+      this.storage.set('Favorite', this.favoriteNews);
     }
   }
+
 }
