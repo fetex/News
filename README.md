@@ -6,7 +6,7 @@ This project was developed using this technologies:
 - [Ionic](https://ionicframework.com/)
 - [Angular](https://angular.io/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [potter API](https://newsapi.org/docs)
+- [News API](https://newsapi.org/docs)
 
 ## :clipboard: Description 
 
