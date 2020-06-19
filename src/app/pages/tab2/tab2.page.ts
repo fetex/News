@@ -12,6 +12,7 @@ export class Tab2Page implements OnInit {
 
 
   @ViewChild(IonSegment, {static: true})  segment: IonSegment;
+
   categories =  ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
   notices: Article[] = [];
 
@@ -35,7 +36,6 @@ export class Tab2Page implements OnInit {
     this.newService.getTopHeadlinesCategory( category)
     .subscribe( resp => {
       this.notices.push(...resp.articles);
-
 
       if (event){
         event.target.complete();
